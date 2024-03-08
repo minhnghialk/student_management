@@ -6,10 +6,12 @@ import { MdOutlineLock } from "react-icons/md";
 const Login = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
     const data = {
       email: e.target.email.value,
       password: e.target.password.value,
     };
+
     if (data.email == null || data.email == "") {
       message.warning("Email can not be blank");
       return false;
@@ -17,6 +19,7 @@ const Login = () => {
       message.warning("Password must be at least 6 characters long.");
       return false;
     }
+
     const validateEmail = (email) => {
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       return emailRegex.test(email);
@@ -25,6 +28,7 @@ const Login = () => {
     if (!validateEmail) {
       message.warning("Invalid email address");
     }
+
     const handleLogin = await apis.userApi.login(data);
     console.log(handleLogin);
   };

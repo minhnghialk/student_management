@@ -16,7 +16,7 @@ export default {
         console.log("error", error);
         return {
           status: false,
-          message: "Could not register!",
+          message: "Can not register!",
         };
       });
   },
@@ -27,14 +27,18 @@ export default {
       .then((response) => {
         console.log("response", response);
         if (response.status === 200) {
-          return response.data;
+          return {
+            status: true,
+            message: "Login successful",
+            data: response.data,
+          };
         }
       })
       .catch((error) => {
         console.log("error", error);
         return {
           status: false,
-          message: "Could not login!",
+          message: "Invalid email or password.",
         };
       });
   },
