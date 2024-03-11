@@ -1,10 +1,10 @@
 import axios from "axios";
 
 export default {
-  register: async (newUser) => {
+  register: async (form_data) => {
     return await axios
       .post(import.meta.env.VITE_SERVER_HOST + "user/register", {
-        newUser,
+        form_data,
       })
       .then((response) => {
         console.log("response", response);
@@ -21,9 +21,9 @@ export default {
       });
   },
 
-  login: async (data) => {
+  login: async (form_data) => {
     return await axios
-      .post(import.meta.env.VITE_SERVER_HOST + "user/login", data)
+      .post(import.meta.env.VITE_SERVER_HOST + "user/login", form_data)
       .then((response) => {
         console.log("response", response);
         if (response.status === 200) {

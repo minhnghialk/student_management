@@ -1,27 +1,27 @@
 import React from "react";
 import { message } from "antd";
-import apis from "../../services/apis/modules/index.js";
+import apis from "../../services/apis/modules/index";
 import { MdOutlineLock } from "react-icons/md";
 
 const Login = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    const data = {
+    const form_data = {
       email: e.target.email.value,
       password: e.target.password.value,
     };
 
-    if (data.email == null || data.email == "") {
+    if (form_data.email == null || form_data.email == "") {
       message.warning("Email can not be blank");
       return false;
-    } else if (data.password.length < 6) {
-      message.warning("Password must be at least 6 characters long.");
+    } else if (form_data.password.length < 6) {
+      message.warning("Password must be at least 6 characters long");
       return false;
     }
 
     const validateEmail = (email) => {
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
       return emailRegex.test(email);
     };
 
@@ -29,8 +29,7 @@ const Login = () => {
       message.warning("Invalid email address");
     }
 
-    const handleLogin = await apis.userApi.login(data);
-    console.log(handleLogin);
+    await apis.userApi.login(form_data);
   };
   return (
     <div>
@@ -42,8 +41,8 @@ const Login = () => {
             src="https://test.rikkei.edu.vn/img/logo.ff4ef557.png"
           />
           <p
-            style={{ color: "#000033", fontSize: "30px", fontWeight: "bold" }}
-            className="ml-6 mt-6 text-xl"
+            style={{ color: "#000033" }}
+            className="ml-6 mt-6 text-4xl font-bold"
           >
             Welcome to RikkeiEdu LMS
           </p>
@@ -53,7 +52,7 @@ const Login = () => {
           />
         </div>
         {/* Vertical Line */}
-        <div className="hidden lg:block bg-gray-200 w-1"></div>
+        <div className="hidden lg:block bg-gray-200 w-1 ml-6"></div>
 
         {/* Form */}
         <div className="bg-white flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -80,7 +79,7 @@ const Login = () => {
                     type="email"
                     required=""
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                    placeholder="email-address@gmail.com"
+                    placeholder="name@gmail.com"
                   />
                 </div>
                 <div className="rounded-md shadow-sm"></div>
@@ -128,7 +127,7 @@ const Login = () => {
               <p className="mt-6 text-sm font-light text-gray-500 dark:text-gray-400">
                 Do not have an account yet?{" "}
                 <a
-                  href="#"
+                  href="register"
                   className="font-medium text-red-600 hover:underline dark:text-red-500"
                 >
                   Sign up

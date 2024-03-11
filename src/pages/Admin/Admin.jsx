@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { GiTeacher } from "react-icons/gi";
 import {
   ApartmentOutlined,
   LogoutOutlined,
@@ -6,10 +7,16 @@ import {
   LockOutlined,
   SettingOutlined,
   ProfileOutlined,
+  PlusOutlined,
+  UnorderedListOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import CreateCourse from "./components/Course/CreateCourse/CreateCourse";
+import CourseList from "./components/Course/CourseList/CourseList";
 import CreateClass from "./components/Class/CreateClass/CreateClass";
+import ClassList from "./components/Class/ClassList/ClassList";
+import CreateTeacher from "./components/Teacher/CreateTeacher/CreateTeacher";
+import TeacherList from "./components/Teacher/TeacherList/TeacherList";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -23,16 +30,31 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-  getItem("Course", "1", <ReadOutlined />),
-  getItem("Class", "2", <ApartmentOutlined />),
-  getItem("Setting", "sub1", <SettingOutlined />, [
-    getItem("Profile", "3", <ProfileOutlined />),
+  getItem("Course", "sub1", <ReadOutlined />, [
+    getItem("Create course", "1", <PlusOutlined />),
+    getItem("Course list", "2", <UnorderedListOutlined />),
   ]),
-  getItem("Authentication", "sub2", <LockOutlined />, [
-    getItem("Forgot password", "4"),
-    getItem("Reset password", "5"),
+
+  getItem("Class", "sub2", <ApartmentOutlined />, [
+    getItem("Create class", "3", <PlusOutlined />),
+    getItem("Class list", "4", <UnorderedListOutlined />),
   ]),
-  getItem("Log out", "9", <LogoutOutlined />),
+
+  getItem("Teacher", "sub3", <GiTeacher />, [
+    getItem("Create teacher", "5", <PlusOutlined />),
+    getItem("Teacher list", "6", <UnorderedListOutlined />),
+  ]),
+
+  getItem("Setting", "sub4", <SettingOutlined />, [
+    getItem("Profile", "7", <ProfileOutlined />),
+  ]),
+
+  getItem("Authentication", "sub5", <LockOutlined />, [
+    getItem("Forgot password", "8"),
+    getItem("Reset password", "9"),
+  ]),
+
+  getItem("Log out", "10", <LogoutOutlined />),
 ];
 
 const Admin = () => {
@@ -46,18 +68,30 @@ const Admin = () => {
 
     switch (key) {
       case "1":
-        setBreadcrumb(["Course"]);
+        setBreadcrumb(["Course", "Create course"]);
         break;
       case "2":
-        setBreadcrumb(["Class"]);
+        setBreadcrumb(["Course", "Course list"]);
         break;
       case "3":
-        setBreadcrumb(["Setting", "Profile"]);
+        setBreadcrumb(["Class", "Create Class"]);
         break;
       case "4":
-        setBreadcrumb(["Authentication", "Forgot password"]);
+        setBreadcrumb(["Class", "Class list"]);
         break;
       case "5":
+        setBreadcrumb(["Teacher", "Create teacher"]);
+        break;
+      case "6":
+        setBreadcrumb(["Teacher", "Teacher list"]);
+        break;
+      case "7":
+        setBreadcrumb(["Setting", "Profile"]);
+        break;
+      case "8":
+        setBreadcrumb(["Authentication", "Forgot password"]);
+        break;
+      case "9":
         setBreadcrumb(["Authentication", "Reset password"]);
         break;
       default:
@@ -70,7 +104,15 @@ const Admin = () => {
       case "1":
         return <CreateCourse />;
       case "2":
+        return <CourseList />;
+      case "3":
         return <CreateClass />;
+      case "4":
+        return <ClassList />;
+      case "5":
+        return <CreateTeacher />;
+      case "6":
+        return <TeacherList />;
       default:
         return null;
     }
@@ -106,7 +148,12 @@ const Admin = () => {
             padding: 0,
             background: colorBgContainer,
           }}
-        />
+        >
+          <img
+            className="h-12 w-auto mx-auto mt-2"
+            src="https://test.rikkei.edu.vn/img/logo.ff4ef557.png"
+          />
+        </Header>
         <Content
           style={{
             margin: "0 16px",
@@ -138,7 +185,7 @@ const Admin = () => {
             textAlign: "center",
           }}
         >
-          Rikkei Education © {new Date().getFullYear()}
+          Rikkei Academy © {new Date().getFullYear()}
         </Footer>
       </Layout>
     </Layout>
