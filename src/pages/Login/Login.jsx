@@ -2,8 +2,11 @@ import React from "react";
 import { message } from "antd";
 import apis from "../../services/apis/modules/index";
 import { MdOutlineLock } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -11,6 +14,8 @@ const Login = () => {
       email: e.target.email.value,
       password: e.target.password.value,
     };
+
+    console.log("form_data", form_data);
 
     if (form_data.email == null || form_data.email == "") {
       message.warning("Email can not be blank");
@@ -30,6 +35,11 @@ const Login = () => {
     }
 
     await apis.userApi.login(form_data);
+
+    const access_token = localStorage.getItem("access_token");
+    if (access_token) {
+      navigate("/");
+    }
   };
   return (
     <div>

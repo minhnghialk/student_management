@@ -1,32 +1,16 @@
 import axios from "axios";
 
 export default {
-  register: async (form_data) => {
-    return await axios
-      .post(import.meta.env.VITE_SERVER_HOST + "user/register", {
-        form_data,
-      })
-      .then((response) => {
-        console.log("response", response);
-        if (response.status === 200) {
-          return response.data;
-        }
-      })
-      .catch((error) => {
-        console.log("error", error);
-        return {
-          status: false,
-          message: "Can not register!",
-        };
-      });
-  },
-
   login: async (form_data) => {
     return await axios
-      .post(import.meta.env.VITE_SERVER_HOST + "user/login", form_data)
+      .post(import.meta.env.VITE_SERVER_HOST + "/api/user/login", {
+        ...form_data,
+      })
       .then((response) => {
-        console.log("response", response);
         if (response.status === 200) {
+          const access_token = response.data.access_token;
+          localStorage.setItem("access_token", access_token);
+
           return {
             status: true,
             message: "Login successful",

@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { CiLogin } from "react-icons/ci";
+import { CiLogin, CiLogout } from "react-icons/ci";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
+import apis from "../../../../services/apis/modules/user.module";
 
 const Navbar = () => {
+  const access_token = localStorage.getItem("access_token");
+
   const { t } = useTranslation();
 
   const [selectedLanguage, setSelectedLanguage] = useState("🇺🇸 English (US)");
@@ -34,14 +37,25 @@ const Navbar = () => {
             >
               {selectedLanguage}
             </button>
+            {access_token ? (
+              <a
+                onClick={() => localStorage.removeItem("access_token")}
+                href="login"
+                className="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                {t("Log out")}
+                <CiLogout className="ml-1" />
+              </a>
+            ) : (
+              <a
+                href="login"
+                className="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                {t("Login")}
+                <CiLogin className="ml-1" />
+              </a>
+            )}
 
-            <a
-              href="login"
-              className="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              {t("Login")}
-              <CiLogin className="ml-1" />
-            </a>
             {/* Dropdown */}
             <div
               className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"

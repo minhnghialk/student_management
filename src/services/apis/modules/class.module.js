@@ -3,9 +3,9 @@ import axios from "axios";
 export default {
   create: async (access_token, form_data) => {
     return await axios
-      .post(import.meta.env.VITE_SERVER_HOST + "api/classes", form_data, {
+      .post(import.meta.env.VITE_SERVER_HOST + "/api/classes", form_data, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${access_token}`,
         },
       })

@@ -4,15 +4,17 @@ const CreateCourse = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+    const access_token = localStorage.getItem("access_token");
+
     const form_data = {
       name: e.target.name.value,
-      duration: e.target.duration.value,
-      start_date: new Date(e.target.start_date.value),
-      end_date: new Date(e.target.end_date.value),
+      duration: Number(e.target.duration.value),
+      start_date: new Date(e.target.start_date.value).toISOString(),
+      end_date: new Date(e.target.end_date.value).toISOString(),
       description: e.target.description.value,
     };
 
-    await apis.create(form_data);
+    await apis.create(access_token, form_data);
   };
   return (
     <div>
@@ -40,7 +42,7 @@ const CreateCourse = () => {
             </div>
             <div className="w-full">
               <label
-                htmlFor="brand"
+                htmlFor="duration"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Duration
@@ -64,7 +66,7 @@ const CreateCourse = () => {
                 type="text"
                 name="start_date"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                placeholder="Course start date"
+                placeholder="YYYY-MM-DD"
               />
             </div>
 
@@ -79,7 +81,7 @@ const CreateCourse = () => {
                 type="text"
                 name="end_date"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                placeholder="Course end date"
+                placeholder="YYYY-MM-DD"
               />
             </div>
           </div>

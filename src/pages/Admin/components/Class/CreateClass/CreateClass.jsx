@@ -3,13 +3,17 @@ import apis from "../../../../../services/apis/modules/class.module";
 const CreateClass = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    const access_token = localStorage.getItem("access_token");
+
     const form_data = {
       name: e.target.name.value,
       teacher: e.target.teacher.value,
-      course_id: e.target.course_id.value,
-      max_students: e.target.max_students.value,
+      course_id: Number(e.target.course_id.value),
+      max_students: Number(e.target.max_students.value),
     };
-    await apis.create(form_data);
+
+    await apis.create(access_token, form_data);
   };
   return (
     <div>
